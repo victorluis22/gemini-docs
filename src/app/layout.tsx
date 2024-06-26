@@ -1,11 +1,13 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { ResponseProvider } from "@/context/responseContext";
+import { RepositoryProvider } from "@/context/repositoryContext";
 import "./globals.css";
 
-import Header from "./components/header";
-import Footer from "./components/footer";
-import Return from "./components/return";
+import Header from "./global/header";
+import Footer from "./global/footer";
+import Return from "./global/return";
+
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -19,10 +21,12 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
     <html lang="pt-br">
       <body className={`flex flex-col ${inter.className} min-h-screen bg-neutral-100`}>
         <ResponseProvider>
-          <Header />
-          <Return />
-          {children}
-          <Footer />
+          <RepositoryProvider>
+            <Header />
+            <Return />
+            {children}
+            <Footer />
+          </RepositoryProvider>
         </ResponseProvider>
       </body>
     </html>

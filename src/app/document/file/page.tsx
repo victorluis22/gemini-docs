@@ -34,7 +34,7 @@ export default function Home() {
 
     setLoading(true)
     try {
-      const res = await axios.post('/api/analyze/single', formData, {
+      const res = await axios.post('/api/gemini/document/one', formData, {
         headers: {
           'Content-Type': 'multipart/form-data'
         }
