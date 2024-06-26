@@ -5,12 +5,12 @@ import Link from 'next/link';
 interface FileTreeProps {
   files: any[];
   owner: string,
-  repo: string,
+  name: string,
   branch: string,
   parentPath?: string;
 }
 
-const FileTree: React.FC<FileTreeProps> = ({ files, owner, repo, branch, parentPath = '' }) => {
+const FileTree: React.FC<FileTreeProps> = ({ files, owner, name, branch, parentPath = '' }) => {
   return (
     <ul>
       {files.map(file => (
@@ -19,10 +19,10 @@ const FileTree: React.FC<FileTreeProps> = ({ files, owner, repo, branch, parentP
             <>
               <Folder style={{ marginRight: 5 }} />
               {file.name}
-              <FileTree owner={owner} repo={repo} branch={branch} files={file.children} parentPath={`${parentPath}/${file.name}`} />
+              <FileTree owner={owner} name={name} branch={branch} files={file.children} parentPath={`${parentPath}/${file.name}`} />
             </>
           ) : (
-            <Link href={`/document/project/${owner}/${repo}/${branch}${parentPath}/${file.name}`}>
+            <Link href={`/document/project/repository/${owner}/${name}/${branch}${parentPath}/${file.name}`}>
               <InsertDriveFile style={{ marginRight: 5 }} />
               {file.name}
             </Link>

@@ -34,7 +34,7 @@ export async function POST (req: NextRequest) {
 
     const files = await getRepositoryFiles(owner, repo);
 
-    return Response.json({ message: 'Files retrieved successfully', owner, repo, files }, {status: 200});
+    return Response.json({ message: 'Files retrieved successfully', owner, name: repo, files }, {status: 200});
   } catch (error) {
 
     console.error('Error fetching repository files:', error);

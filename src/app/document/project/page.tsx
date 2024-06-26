@@ -1,25 +1,20 @@
 "use client"
 
-import { FormEvent, useContext, useState } from 'react';
+import { FormEvent, useState } from 'react';
 import axios from 'axios';
 import { Send } from '@mui/icons-material';
 import Button from '@mui/material/Button';
 import { CircularProgress } from '@mui/material';
+import { useRepository } from '@/context/repositoryContext';
 
 import FileTree from './components/fileTree';
-import { RepositoryContext } from '@/context/repositoryContext';
-
 
 export default function ProjectPage() {
   const [repoUrl, setRepoUrl] = useState<string>('');
-  const [owner, setOwner] = useState<string>('');
   const [branch, setBranch] = useState<string>('main');
-  const [repo, setRepo] = useState<string>('');
-
-  const repositoryContext = useContext(RepositoryContext);
-
   const [loading, setLoading] = useState<boolean>(false);
-  const [files, setFiles] = useState<any[]>([]);
+
+  const { repository, saveRepo } = useRepository();
 
   const handleSubmit = async (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
@@ -34,13 +29,11 @@ export default function ProjectPage() {
     try {
       const res = await axios.post('/api/github/fetch/repository', { repoUrl });
 
-      setFiles(res.data.files); // Armazena os arquivos para renderização
-      setOwner(res.data.owner)
-      setRepo(res.data.repo)
+      saveRepo(res.data.name, res.data.owner, branch, res.data.files)
 
-      // responseContext?.saveResponse(res.data.message);
       setLoading(false);
     } catch (error) {
+
       console.error('Error fetching repository files:', error);
       alert('Failed to analyze repository');
       setLoading(false);
@@ -75,9 +68,9 @@ export default function ProjectPage() {
           disabled={loading}>Analisar</Button>
       </form>
 
-      {files.length > 0 && (
+      {repository.files.length > 0 && (
         <div className="mt-5">
-          <FileTree owner={owner} repo={repo} branch={branch} files={files} />
+          <FileTree owner={repository.owner} name={repository.name} branch={repository.branch} files={repository.files} />
         </div>
       )}
     </main>
