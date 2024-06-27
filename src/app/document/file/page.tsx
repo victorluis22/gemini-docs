@@ -1,5 +1,5 @@
 "use client"
-import { ChangeEvent, FormEvent, useContext, useState } from 'react';
+import { ChangeEvent, FormEvent, useState } from 'react';
 import axios from 'axios';
 
 import { Send } from '@mui/icons-material';
@@ -7,12 +7,13 @@ import { Send } from '@mui/icons-material';
 import Button from '@mui/material/Button';
 import { CircularProgress } from '@mui/material';
 import { useRouter } from 'next/navigation';
-import { ResponseContext, responseContextType } from '@/context/responseContext';
+import { useGeminiResponse } from '@/context/geminiResponseContext';
+
 
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState<boolean>(false)
-  const responseContext = useContext<responseContextType | null>(ResponseContext)
+  const { saveResponse } = useGeminiResponse();
   const router = useRouter()
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -40,7 +41,7 @@ export default function Home() {
         }
       });
 
-      responseContext?.saveResponse(res.data.message)
+      saveResponse(res.data.message)
       setLoading(false)
       router.push("/result");
 

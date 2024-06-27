@@ -1,25 +1,25 @@
 "use client"
 
 import { MDXRemote } from 'next-mdx-remote';
-import { LegacyRef, MutableRefObject, useContext, useRef } from 'react';
-import { ResponseContext } from '@/context/responseContext';
 import { useMDXComponents } from '@/mdx-components';
 import { Fab } from '@mui/material';
 import { Save } from '@mui/icons-material';
+import { useGeminiResponse } from '@/context/geminiResponseContext';
 
 export default function Result() {
-  const responseContext = useContext(ResponseContext)
+  const { response } = useGeminiResponse();
 
   const handlePrint = () => {
-    window.print()
+    window.scrollTo(0, 0);
+    window.print();
   }
 
-  if (!responseContext?.response) return <>Loading...</>
+  if (!response) return <>Loading...</>
 
   return (
     <main className="flex grow flex-col items-center justify-center ">
       <div className="bg-white flex flex-col grow m-5 p-7 shadow-lg rounded-md" id='printable'>
-        <MDXRemote {...responseContext.response} components={useMDXComponents}/>
+        <MDXRemote {...response} components={useMDXComponents}/>
       </div>
 
       <div className='fixed bottom-5 right-5'>

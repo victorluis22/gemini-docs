@@ -2,16 +2,28 @@
 
 import { MDXRemoteSerializeResult } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
-import React, { createContext, useEffect, useState } from "react";
+import React, { createContext, useContext, useEffect, useState } from "react";
 
-export type responseContextType = {
+export type geminiResponseContextType = {
     response: MDXRemoteSerializeResult | null;
     saveResponse: (response: string) => void;
 };
 
-export const ResponseContext = createContext<responseContextType | null>(null)
+const GeminiResponseContext = createContext<geminiResponseContextType | null>(null)
 
-export const ResponseProvider: React.FC<{children: React.ReactNode}> = ({ children }) => {
+export const useGeminiResponse = () => {
+    const geminiResponseContext = useContext(GeminiResponseContext);
+  
+    if (!geminiResponseContext) {
+      throw new Error(
+        "useGeminiResponse has to be used within <GeminiResponseContext.Provider>"
+      );
+    }
+  
+    return geminiResponseContext;
+};
+
+export const GeminiResponseProvider: React.FC<{children: React.ReactNode}> = ({ children }) => {
 
     const [response, setResponse] = useState<MDXRemoteSerializeResult | null>(null);
 
@@ -32,8 +44,8 @@ export const ResponseProvider: React.FC<{children: React.ReactNode}> = ({ childr
     }
 
     return(
-        <ResponseContext.Provider value={{response, saveResponse}}>
+        <GeminiResponseContext.Provider value={{response, saveResponse}}>
             {children}
-        </ResponseContext.Provider>
+        </GeminiResponseContext.Provider>
     )
 }
