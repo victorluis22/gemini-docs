@@ -1,3 +1,3 @@
-const allowedFiles = ["js", "ts", "jsx", "tsx", "py", "md"]
+const allowedFiles = ["js", "ts", "jsx", "tsx", "py"]
 
 export default allowedFiles

@@ -45,6 +45,8 @@ export const GeminiResponseProvider: React.FC<{children: React.ReactNode}> = ({ 
     }, [])
 
     const setResponse = async (fileContent: string, fileExtension: string) => {
+        clearResponse();
+        
         try{
             const response = await axios.post('/api/gemini/document/one', {fileContent});
             const mdxCodeString = "```" + fileExtension + "\n" + fileContent + "```"
@@ -68,8 +70,15 @@ export const GeminiResponseProvider: React.FC<{children: React.ReactNode}> = ({ 
         }
     }
 
+    const clearResponse = () => {
+        localStorage.removeItem("code");
+        localStorage.removeItem("response");
+        setHighlightedCode(null)
+        setSerializedResponse(null)
+    }
+
     return(
-        <GeminiResponseContext.Provider value={{ highlightedCode, serializedResponse, setResponse}}>
+        <GeminiResponseContext.Provider value={{ highlightedCode, serializedResponse, setResponse }}>
             {children}
         </GeminiResponseContext.Provider>
     )

@@ -43,7 +43,13 @@ export default function ProjectPage() {
   return (
     <main className="flex grow flex-col items-center justify-center gap-5 m-5">
       <h1 className='font-bold text-3xl'>Documente um Repositório do GitHub</h1>
-      <p>Insira a URL de um repositório público do GitHub para criar a documentação do código contido nele.</p>
+      <p>Insira a URL de um repositório público do GitHub para criar a documentação do código contido nele. Tipos de arquivo que serão documentados:</p>
+      <div className='flex items-center justify-center flex-wrap'>
+          <img alt="Javascript" src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E"/>
+          <img alt="Typescript" src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white"/>
+          <img alt="React" src="https://img.shields.io/badge/react-%2320232a.svg?style=for-the-badge&logo=react&logoColor=%2361DAFB"/>
+          <img alt="Python" src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54"/>
+        </div>
       <form onSubmit={handleSubmit} className='flex items-center justify-center gap-5 flex-wrap'>
         <input
           type="url"

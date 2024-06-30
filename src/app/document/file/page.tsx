@@ -8,7 +8,6 @@ import { useRouter } from 'next/navigation';
 import { useGeminiResponse } from '@/context/geminiResponseContext';
 import allowedFiles from '@/services/allowedFiles';
 
-
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState<boolean>(false)

@@ -40,7 +40,7 @@ const Result: React.FC<resultProps> = ({ params }) => {
           </Accordion>
       </div>
 
-      <div className="bg-white flex flex-col w-full grow my-5 p-7 shadow-lg rounded-md border-zinc-200 border border-b-zinc-500" id='printable'>
+      <div className="bg-white flex flex-col w-full grow my-5 p-7 rounded-md border-zinc-200 border border-b-zinc-500" id='printable'>
         <MDXRemote {...serializedResponse} components={useMDXComponents}/>
       </div>
 
