@@ -69,7 +69,7 @@ export default function ProjectPage() {
       </form>
 
       {repository.files.length > 0 && (
-        <div className="mt-5">
+        <div className="bg-white p-5 m-5 rounded-md w-full shadow-md">
           <FileTree owner={repository.owner} name={repository.name} branch={repository.branch} files={repository.files} />
         </div>
       )}

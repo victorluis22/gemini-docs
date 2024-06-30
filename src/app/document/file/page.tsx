@@ -1,19 +1,18 @@
 "use client"
 import { ChangeEvent, FormEvent, useState } from 'react';
-import axios from 'axios';
-
 import { Send } from '@mui/icons-material';
 
 import Button from '@mui/material/Button';
 import { CircularProgress } from '@mui/material';
 import { useRouter } from 'next/navigation';
 import { useGeminiResponse } from '@/context/geminiResponseContext';
+import allowedFiles from '@/services/allowedFiles';
 
 
 export default function Home() {
   const [file, setFile] = useState<File | null>(null);
   const [loading, setLoading] = useState<boolean>(false)
-  const { saveResponse } = useGeminiResponse();
+  const { setResponse } = useGeminiResponse();
   const router = useRouter()
 
   const handleFileChange = (e: ChangeEvent<HTMLInputElement>) => {
@@ -30,28 +29,27 @@ export default function Home() {
       return;
     }
 
-    const formData = new FormData();
-    formData.append('file', file);
+    const fileExtension = file.name.split(".")[1];
 
-    setLoading(true)
-    try {
-      const res = await axios.post('/api/gemini/document/one', formData, {
-        headers: {
-          'Content-Type': 'multipart/form-data'
-        }
-      });
-
-      saveResponse(res.data.message)
-      setLoading(false)
-      router.push("/result");
-
-    } catch (error) {
-
-      console.error('Error uploading file:', error);
-      alert('Failed to analyze file')
-      setLoading(false)
+    if (!allowedFiles.includes(fileExtension)){
+      return alert("Tipo de arquivo não permitido");
     }
-  };
+
+    const buffer = Buffer.from(await file.arrayBuffer());
+    const fileContents = buffer.toString('utf-8');
+    
+    setLoading(true)
+
+    try{
+      setResponse(fileContents, fileExtension);
+      setLoading(false);
+      router.push(`/document/result/${file.name}`);
+    } catch (error) {
+      setLoading(false);
+      alert("Erro ao receber resposta do Gemini");
+    }
+  }
+
 
   return (
     <main className="flex grow flex-col items-center justify-center gap-5 m-5">
