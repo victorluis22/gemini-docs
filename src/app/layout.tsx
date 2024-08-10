@@ -22,7 +22,7 @@ export const metadata: Metadata = {
 
 export default function RootLayout({ children }: Readonly<{ children: React.ReactNode; }>) {
   return (
-    <html lang="pt-br">
+    <html lang="en-us">
       <body className={`flex flex-col ${inter.className} min-h-screen bg-neutral-100`}>
         <GeminiResponseProvider>
           <RepositoryProvider>

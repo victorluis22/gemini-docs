@@ -14,7 +14,7 @@ export default function Return() {
                 <IconButton size="medium" onClick={() => router.back()}>
                     <ArrowBack />
                 </IconButton>
-                <p className="font-bold opacity-70">Retornar</p>
+                <p className="font-bold opacity-70">Return</p>
             </div>
         )
     }

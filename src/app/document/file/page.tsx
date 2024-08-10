@@ -31,7 +31,7 @@ export default function Home() {
     const fileExtension = file.name.split(".")[1];
 
     if (!allowedFiles.includes(fileExtension)){
-      return alert("Tipo de arquivo não permitido");
+      return alert("This file extension is not allowed.");
     }
 
     const buffer = Buffer.from(await file.arrayBuffer());
@@ -45,15 +45,15 @@ export default function Home() {
       router.push(`/document/result/${file.name}`);
     } catch (error) {
       setLoading(false);
-      alert("Erro ao receber resposta do Gemini");
+      alert("Error requesting gemini response");
     }
   }
 
 
   return (
     <main className="flex grow flex-col items-center justify-center gap-5 m-5">
-        <h1 className='font-bold text-3xl'>Documente um arquivo</h1>
-        <p>Use a ferramenta para criar uma documentação do código contido em um arquivo. Tipos de arquivo permitidos:</p>
+        <h1 className='font-bold text-3xl'>Document a file</h1>
+        <p>Use this tool to generate a documentation for the code in your file. The following programming languages are allowed:</p>
         <div className='flex items-center justify-center flex-wrap'>
           <img alt="Javascript" src="https://img.shields.io/badge/javascript-%23323330.svg?style=for-the-badge&logo=javascript&logoColor=%23F7DF1E"/>
           <img alt="Typescript" src="https://img.shields.io/badge/typescript-%23007ACC.svg?style=for-the-badge&logo=typescript&logoColor=white"/>
@@ -61,16 +61,14 @@ export default function Home() {
           <img alt="Python" src="https://img.shields.io/badge/python-3670A0?style=for-the-badge&logo=python&logoColor=ffdd54"/>
         </div>
         <form onSubmit={handleSubmit} className='flex items-center justify-center gap-5 flex-wrap'>
-          <input type="file" accept=".js, .ts, .tsx, .jsx, .py, .ipynb" onChange={handleFileChange}/>
+          <input type="file" accept=".js, .ts, .tsx, .jsx, .py" onChange={handleFileChange} placeholder='dsad'/>
           <Button 
             type='submit' 
             variant="contained"
             
             endIcon={loading ? <CircularProgress size={20}/> : <Send style={{fontSize: 20}}/>} 
-            disabled={loading}>Enviar</Button>
+            disabled={loading}>Submit</Button>
         </form>
-
-        <p className='font-light text-sm'>Ou arraste o arquivo para cá...</p>
     </main>
   );
 }
