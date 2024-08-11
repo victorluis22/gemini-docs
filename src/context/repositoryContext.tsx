@@ -12,6 +12,7 @@ type repositoryType = {
 export type repositoryContextType = {
     repository: repositoryType,
     saveRepo: (name: string, owner: string, branch: string, files: Array<any>) => void;
+    clearRepo: () => void;
 };
 
 export const RepositoryContext = createContext<repositoryContextType | null>(null)
@@ -50,15 +51,27 @@ export const RepositoryProvider: React.FC<{children: React.ReactNode}> = ({ chil
             owner,
             branch, 
             files
-        }
+        };
 
-        localStorage.setItem('repository', JSON.stringify(repo))
+        localStorage.setItem('repository', JSON.stringify(repo));
 
-        setRepository(repo)
+        setRepository(repo);
+    }
+
+    const clearRepo = async () => {
+        setRepository(
+            {
+                name: "",
+                owner: "",
+                branch: "",
+                files: []
+            }
+        );
+        localStorage.removeItem('repository');
     }
 
     return(
-        <RepositoryContext.Provider value={{repository, saveRepo}}>
+        <RepositoryContext.Provider value={{repository, saveRepo, clearRepo}}>
             {children}
         </RepositoryContext.Provider>
     )

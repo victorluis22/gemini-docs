@@ -1,9 +1,10 @@
 "use client"
 
-import axios from "axios";
 import { MDXRemoteSerializeResult } from "next-mdx-remote";
 import { serialize } from "next-mdx-remote/serialize";
 import React, { createContext, useContext, useEffect, useState } from "react";
+
+import axios from "axios";
 import rehypeCodeTitles from "rehype-code-titles";
 import rehypePrism from "rehype-prism-plus";
 

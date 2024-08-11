@@ -2,7 +2,7 @@
 
 import { MDXRemote } from 'next-mdx-remote';
 import { useMDXComponents } from '@/mdx-components';
-import { Accordion, AccordionDetails, AccordionSummary, Fab } from '@mui/material';
+import { Accordion, AccordionDetails, AccordionSummary, CircularProgress, Fab } from '@mui/material';
 import { ExpandMoreOutlined, Save } from '@mui/icons-material';
 import { useGeminiResponse } from '@/context/geminiResponseContext';
 
@@ -21,10 +21,10 @@ const Result: React.FC<resultProps> = ({ params }) => {
   }
 
 
-  if (!serializedResponse || !highlightedCode) return <>Loading...</>
+  if (!serializedResponse || !highlightedCode) return <CircularProgress />
 
   return (
-    <main className="flex grow flex-col items-center justify-center p-5">
+    <>
       <div className='w-full' id='not-printable'>
         <Accordion
             component={"div"}
@@ -49,7 +49,7 @@ const Result: React.FC<resultProps> = ({ params }) => {
           <Save />
         </Fab>
       </div>
-    </main>
+    </>
   );
 }
 
