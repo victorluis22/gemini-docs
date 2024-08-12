@@ -6,7 +6,7 @@ const genAI = new GoogleGenerativeAI(process.env.GEMINI_API_KEY || "" );
 export async function POST (req: NextRequest) {
   const { fileContent } = await req.json();
  
-  const prompt = "Imagine que você esteja documentando um código. Leia o código a seguir e faça uma documentação dele. Escreva sua resposta em português brasileiro:"
+  const prompt = "Imagine you are documenting code. Read the code below and document it. Write your answer in English. Include one heading with the sentence: Documentation {filename}"
 
   if (!fileContent) {
     return Response.json({ message: "No file content received." }, { status: 400 });

@@ -32,7 +32,7 @@ const Result: React.FC<resultProps> = ({ params }) => {
             <AccordionSummary
               expandIcon={<ExpandMoreOutlined />}
             >
-              Código
+              Code
             </AccordionSummary>
             <AccordionDetails>
               <MDXRemote {...highlightedCode}/>
