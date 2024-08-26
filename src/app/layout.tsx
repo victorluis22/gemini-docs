@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import { Inter } from "next/font/google";
 import { GeminiResponseProvider } from "@/context/geminiResponseContext";
+import { GoogleAnalytics } from '@next/third-parties/google';
 import { RepositoryProvider } from "@/context/repositoryContext";
 import "./globals.css";
 
@@ -29,6 +30,7 @@ export default function RootLayout({ children }: Readonly<{ children: React.Reac
             <Footer />
           </RepositoryProvider>
         </GeminiResponseProvider>
+        <GoogleAnalytics gaId="G-00C3SVBB1P" />
       </body>
     </html>
   );
